@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Creative Studio - Inovação & Design</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 5px;
+        }
+        /* Gradient Animation */
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="scrollToTop()">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30">
+                        N
+                    </div>
+                    <span class="ml-3 text-xl font-bold tracking-tight text-slate-900 dark:text-white">Nexus<span class="text-blue-600">.</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                    <a href="#hero" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Início</a>
+                    <a href="#servicos" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Serviços</a>
+                    <a href="#sobre" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Sobre Nós</a>
+                    <a href="#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfólio</a>
+                    <a href="#contacto" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
+                </div>
+
+                <!-- Actions (Theme Toggle & CTA) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Dark/Light Theme Button -->
+                    <button id="theme-toggle" type="button" aria-label="Alternar tema" class="p-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-sm transition-all duration-200">
+                        <i id="theme-toggle-dark-icon" class="fas font-solid fa-moon text-lg hidden"></i>
+                        <i id="theme-toggle-light-icon" class="fas font-solid fa-sun text-lg hidden"></i>
+                    </button>
+
+                    <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-200 transform hover:-translate-y-0.5">
+                        Começar Projeto
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" type="button" aria-label="Alternar tema no mobile" class="p-2 text-slate-500 dark:text-slate-400 rounded-lg">
+                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon text-lg hidden"></i>
+                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun text-lg hidden"></i>
+                    </button>
+                    <button id="mobile-menu-btn" type="button" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none">
+                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Início</a>
+            <a href="#servicos" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Serviços</a>
+            <a href="#sobre" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Sobre Nós</a>
+            <a href="#portfolio" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Portfólio</a>
+            <a href="#contacto" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Contacto</a>
+            <a href="#contacto" class="mobile-link block text-center bg-blue-600 text-white py-2.5 rounded-xl font-medium mt-4">Começar Projeto</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20">
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative py-20 lg:py-32 overflow-hidden flex items-center min-h-[90vh]">
+            <div class="absolute inset-0 -z-10 opacity-30 dark:opacity-20 pointer-events-none">
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/30 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-purple-500/30 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Left Column Text -->
+                    <div class="space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-300 text-sm font-medium">
+                            <span class="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+                            <span>Estúdio Digital Inovador</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            Transformamos ideias em <span class="gradient-text">experiências digitais</span> extraordinárias.
+                        </h1>
+
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal">
+                            Desenvolvemos websites responsivos, marcas marcantes e produtos digitais desenhados para otimizar resultados e elevar o seu negócio ao próximo nível.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#contacto" class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 transition-all duration-200 transform hover:-translate-y-1 text-center">
+                                Agendar Reunião
+                            </a>
+                            <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl transition-all duration-200 text-center flex items-center justify-center gap-2">
+                                <span>Ver Projetos</span>
+                                <i class="fas fa-arrow-right text-sm"></i>
+                            </a>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-3 gap-4 text-center lg:text-left">
+                            <div>
+                                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">99%</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">Clientes Satisfeitos</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">+150</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">Projetos Entregues</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">5+</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">Anos de Experiência</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column Image / Graphic -->
+                    <div class="relative flex justify-center">
+                        <div class="relative w-full max-w-lg">
+                            <div class="absolute -top-4 -left-4 w-72 h-72 bg-purple-300 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                            <div class="absolute -bottom-8 -right-4 w-72 h-72 bg-blue-300 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 p-2">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Dashboard Interativo" class="rounded-xl w-full h-auto object-cover" onerror="this.src='https://placehold.co/800x600/0284c7/ffffff?text=Dashboard+Nexus'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicos" class="py-20 bg-slate-100/50 dark:bg-slate-800/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">O Que Fazemos</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Soluções completas para a sua presença digital</p>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 text-lg">Oferecemos serviços especializados para transformar ideias em resultados de alto impacto.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700/50 hover:shadow-xl hover:border-blue-500/50 transition-all duration-300 group">
+                        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-950/80 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Desenvolvimento Web</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                            Websites modernos, ultra-rápidos e totalmente otimizados para motores de busca (SEO) e todos os tipos de dispositivos.
+                        </p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                            <li><i class="fas fa-check text-blue-500 mr-2"></i>React / Next.js / HTML5</li>
+                            <li><i class="fas fa-check text-blue-500 mr-2"></i>E-Commerce e Lojas Web</li>
+                            <li><i class="fas fa-check text-blue-500 mr-2"></i>Otimização de Performance</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700/50 hover:shadow-xl hover:border-blue-500/50 transition-all duration-300 group">
+                        <div class="w-14 h-14 bg-purple-100 dark:bg-purple-950/80 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-paint-brush text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Design UI/UX</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                            Criação de interfaces intuitivas e esteticamente envolventes centradas na melhor experiência para o utilizador.
+                        </p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                            <li><i class="fas fa-check text-purple-500 mr-2"></i>Prototipagem Interativa</li>
+                            <li><i class="fas fa-check text-purple-500 mr-2"></i>Design System</li>
+                            <li><i class="fas fa-check text-purple-500 mr-2"></i>Testes de Usabilidade</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700/50 hover:shadow-xl hover:border-blue-500/50 transition-all duration-300 group">
+                        <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-950/80 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Marketing Digital</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                            Estratégias para aumentar a sua visibilidade, atrair potenciais clientes e acelerar as conversões do seu negócio.
+                        </p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                            <li><i class="fas fa-check text-emerald-500 mr-2"></i>SEO & Posicionamento Google</li>
+                            <li><i class="fas fa-check text-emerald-500 mr-2"></i>Gestão de Redes Sociais</li>
+                            <li><i class="fas fa-check text-emerald-500 mr-2"></i>Campanhas de Anúncios</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="sobre" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Image Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <img class="rounded-2xl shadow-lg w-full h-64 object-cover" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Equipa a trabalhar" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=Equipa+Nexus'">
+                        <img class="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Reunião de brainstorm" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=Brainstorming'">
+                    </div>
+
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <h2 class="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Sobre a Nexus</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Criamos soluções digitais focadas em inovação e resultados.</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            A Nexus é um estúdio de inovação digital fundado em 2021. Combinamos criatividade, tecnologia de ponta e estratégia para construir produtos que não apenas impressionam visualmente, mas impulsionam o crescimento sustentável de marcas e empresas.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="p-2 bg-blue-100 dark:bg-blue-950/60 rounded-lg text-blue-600 dark:text-blue-400 mt-1">
+                                    <i class="fas fa-bullseye text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white">A nossa Missão</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Democratizar o acesso a soluções digitais de alta performance e excelência estética.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="p-2 bg-blue-100 dark:bg-blue-950/60 rounded-lg text-blue-600 dark:text-blue-400 mt-1">
+                                    <i class="fas fa-eye text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white">A nossa Visão</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Ser referência global no ecossistema de desenvolvimento e design estratégico.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio / Gallery Section -->
+        <section id="portfolio" class="py-20 bg-slate-100/50 dark:bg-slate-800/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Portfólio</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Trabalhos em Destaque</p>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400">Explore alguns dos nossos projetos mais recentes.</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10" id="portfolio-filters">
+                    <button class="filter-btn active px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 bg-blue-600 text-white shadow-md shadow-blue-500/20" data-filter="all">Todos</button>
+                    <button class="filter-btn px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="web">Websites</button>
+                    <button class="filter-btn px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="app">Aplicações</button>
+                    <button class="filter-btn px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="brand">Branding</button>
+                </div>
+
+                <!-- Grid items -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                    <!-- Item 1 -->
+                    <div class="portfolio-item web bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer" onclick="openModal('Plataforma FinTech', 'Website financeiro interativo com dashboards em tempo real.', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80')">
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Fintech App" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=Plataforma+FinTech'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                                <span class="text-white text-sm font-medium flex items-center gap-2">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Websites</span>
+                            <h3 class="text-lg font-bold mt-1 group-hover:text-blue-600 transition-colors">Plataforma FinTech</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">Plataforma bancária completa focada na melhor UX.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="portfolio-item app bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer" onclick="openModal('App de Saúde & Fitness', 'Aplicação móvel para monitorização de treinos e dieta.', 'https://images.unsplash.com/photo-1510519138161-58446230f71b?auto=format&fit=crop&w=1000&q=80')">
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1510519138161-58446230f71b?auto=format&fit=crop&w=600&q=80" alt="Fitness App" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=App+Saude'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                                <span class="text-white text-sm font-medium flex items-center gap-2">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Aplicações</span>
+                            <h3 class="text-lg font-bold mt-1 group-hover:text-purple-600 transition-colors">FitPulse Mobile</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">App de fitness com treino personalizado e estatísticas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="portfolio-item brand bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer" onclick="openModal('Rebranding Café Gourmet', 'Identidade visual moderna e sustentável para cafeteria premium.', 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80')">
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Branding Cafe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=Branding+Cafe'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                                <span class="text-white text-sm font-medium flex items-center gap-2">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Branding</span>
+                            <h3 class="text-lg font-bold mt-1 group-hover:text-emerald-600 transition-colors">Aroma Specialty Coffee</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">Design de embalagens e estratégia de marca.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Left Column Contact Info -->
+                    <div>
+                        <h2 class="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Contacto</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-2">Vamos iniciar um projeto juntos?</h3>
+                        <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Estamos prontos para ouvir as suas ideias. Preencha o formulário ou entre em contacto direto através dos nossos canais.
+                        </p>
+
+                        <div class="mt-8 space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-950/60 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">Email</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-200">contacto@nexus-studio.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-950/60 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">Telefone</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-200">+351 912 345 678</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-950/60 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-location-dot text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">Localização</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-200">Lisboa, Portugal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column Interactive Form -->
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700/50 shadow-xl relative">
+                        <!-- Success Message Notification (Hidden by default) -->
+                        <div id="form-success" class="hidden absolute inset-0 bg-white dark:bg-slate-800 rounded-3xl p-8 flex flex-col items-center justify-center text-center z-10 transition-all">
+                            <div class="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-3xl mb-4 animate-bounce">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold mb-2">Mensagem Enviada!</h4>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">Obrigado pelo seu contacto. Responderemos dentro de 24 horas.</p>
+                            <button onclick="resetForm()" class="px-6 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors">
+                                Enviar outra mensagem
+                            </button>
+                        </div>
+
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5" novalidate>
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Nome Completo</label>
+                                <input type="text" id="name" required placeholder="Ex: João Silva" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors">
+                                <span class="text-xs text-red-500 hidden" id="name-error">Por favor, insira o seu nome.</span>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Endereço de Email</label>
+                                <input type="email" id="email" required placeholder="joao@exemplo.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors">
+                                <span class="text-xs text-red-500 hidden" id="email-error">Por favor, insira um email válido.</span>
+                            </div>
+
+                            <div>
+                                <label for="service" class="block text-sm font-medium mb-2">Serviço Pretendido</label>
+                                <select id="service" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors">
+                                    <option value="web">Desenvolvimento Web</option>
+                                    <option value="design">Design UI/UX</option>
+                                    <option value="marketing">Marketing Digital</option>
+                                    <option value="other">Outro assunto</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-2">Mensagem</label>
+                                <textarea id="message" rows="4" required placeholder="Conte-nos um pouco sobre o seu projeto..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors"></textarea>
+                                <span class="text-xs text-red-500 hidden" id="message-error">A mensagem deve ter pelo menos 10 caracteres.</span>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md shadow-blue-500/30 transition-all duration-200 flex items-center justify-center gap-2">
+                                <span id="btn-text">Enviar Mensagem</span>
+                                <i id="btn-spinner" class="fas fa-spinner fa-spin hidden"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Lightbox para o Portfólio -->
+    <div id="portfolio-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 relative">
+            <button onclick="closeModal()" aria-label="Fechar janela" class="absolute top-4 right-4 z-10 w-10 h-10 bg-slate-900/50 text-white rounded-full flex items-center justify-center hover:bg-slate-900 transition-colors">
+                <i class="fas fa-xmark text-lg"></i>
+            </button>
+            <img id="modal-img" src="" alt="Detalhe do projeto" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 id="modal-title" class="text-2xl font-bold mb-3"></h3>
+                <p id="modal-desc" class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6"></p>
+                <div class="flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 font-medium rounded-xl transition-colors">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Brand -->
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-base">
+                        N
+                    </div>
+                    <span class="ml-2.5 text-lg font-bold">Nexus Studio</span>
+                </div>
+
+                <!-- Copyright -->
+                <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+                    &copy; 2026 Nexus Studio. Todos os direitos reservados.
+                </p>
+
+                <!-- Socials -->
+                <div class="flex space-x-4 text-slate-400">
+                    <a href="#" aria-label="Github" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-lg"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-lg"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-lg"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Modo Claro / Escuro ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const themeToggleDarkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+        const themeToggleLightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+        // Verificar preferências anteriores
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+            themeToggleLightIconMobile.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+            themeToggleDarkIconMobile.classList.remove('hidden');
+        }
+
+        function toggleTheme() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            themeToggleDarkIconMobile.classList.toggle('hidden');
+            themeToggleLightIconMobile.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+        // --- Menu Mobile ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Scroll suave até ao topo ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Filtros do Portfólio ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Atualizar classes ativas dos botões
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/20');
+                    b.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                });
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/20');
+                btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- Modal / Lightbox do Portfólio ---
+        const modal = document.getElementById('portfolio-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalImg = document.getElementById('modal-img');
+
+        function openModal(title, desc, imgSrc) {
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- Validação & Envio do Formulário ---
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const messageError = document.getElementById('message-error');
+
+            let isValid = true;
+
+            // Validação simples
+            if (!nameInput.value.trim()) {
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+
+            if (messageInput.value.trim().length < 10) {
+                messageError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                messageError.classList.add('hidden');
+            }
+
+            if (!isValid) return;
+
+            // Animação de envio simulado
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            const submitBtn = document.getElementById('submit-btn');
+
+            btnText.innerText = 'A enviar...';
+            btnSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                // Sucesso
+                btnText.innerText = 'Enviar Mensagem';
+                btnSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+
+                document.getElementById('form-success').classList.remove('hidden');
+            }, 1500);
+        }
+
+        function resetForm() {
+            document.getElementById('contact-form').reset();
+            document.getElementById('form-success').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
